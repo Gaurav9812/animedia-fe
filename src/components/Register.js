@@ -1,12 +1,16 @@
 import { ErrorMessage, Field, Form, Formik, useField } from "formik";
 import React, { useState } from "react";
-import { startYear, years, days, months } from "../helpers/helper";
+import { startYear, years, days, months, BACKEND_URL } from "../helpers/helper";
 import { object, string, number } from "yup";
+import axios from "axios";
+import { URL_REGISTER } from "../helpers/UrlHelper";
+import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
   return (
     <div className="flex h-5/6 justify-center items-center">
-      <div className="w-1/4 border-4 border-indigo-950">
+      <div className="w-1/3 border-4 border-indigo-950">
         <div className="p-5 bg-purple-800 flex justify-center items-center">
           <p className="text-white text-3xl font-bold ">
             Create a new Account?
@@ -15,8 +19,8 @@ const Register = () => {
         <div>
           <Formik
             initialValues={{
-              firstname: "",
-              lastname: "",
+              firstName: "",
+              lastName: "",
               day: "",
               month: "",
               year: "",
@@ -47,8 +51,26 @@ const Register = () => {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("sad");
-              setSubmitting(true);
+              console.log(values);
+              setSubmitting(false);
+              axios({
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                url: URL_REGISTER,
+                data: JSON.stringify(values),
+              })
+                .then((response) => {
+                  console.log(response);
+                  if (response.status == 200) {
+                    toast.success(response.data.message, {});
+                    <Navigate to="/login" />;
+                  }
+                })
+                .catch((error) => {
+                  toast.error(error.response.data.message, {});
+                });
             }}
           >
             {({ errors, isSubmitting, touched }) => {
@@ -58,13 +80,13 @@ const Register = () => {
                     <MyTextField
                       type="text"
                       placeholder="First Name"
-                      name="firstname"
+                      name="firstName"
                     />
 
                     <MyTextField
                       type="text"
                       placeholder="Last Name"
-                      name="lastname"
+                      name="lastName"
                     />
                   </div>
                   <div className="flex justify-between my-3">
@@ -211,8 +233,8 @@ const MyTextField = ({ label, ...props }) => {
 };
 
 const signupValidationSchema = object({
-  firstname: string().required(),
-  lastname: string().required(),
+  firstName: string().required(),
+  lastName: string().required(),
   day: number().lessThan(32).moreThan(0).required(),
   month: number().lessThan(13).moreThan(0).required(),
   year: number().moreThan(0).required(),

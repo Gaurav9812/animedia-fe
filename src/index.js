@@ -7,14 +7,30 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Layout = () => {
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
       <Header />
       <Outlet />
       <Footer />
+
+      <ToastContainer />
     </>
   );
 };
