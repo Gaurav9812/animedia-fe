@@ -5,9 +5,10 @@ import { object, string, number } from "yup";
 import axios from "axios";
 import { URL_REGISTER } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
-
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 const Register = () => {
+  const navigate = useNavigate();
+  // toast.configure();
   return (
     <div className="flex h-5/6 justify-center items-center">
       <div className="w-1/3 border-4 border-indigo-950">
@@ -51,9 +52,9 @@ const Register = () => {
               return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
+              
               setSubmitting(false);
-              axios({
+              return axios({
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -64,13 +65,23 @@ const Register = () => {
                 .then((response) => {
                   console.log(response);
                   if (response.status == 200) {
-                    toast.success(response.data.message, {});
-                    <Navigate to="/login" />;
+                    toast.success(response.data.message, {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light",
+                      });
+                      return navigate('/login');
                   }
                 })
                 .catch((error) => {
                   toast.error(error.response.data.message, {});
                 });
+                
             }}
           >
             {({ errors, isSubmitting, touched }) => {
@@ -212,7 +223,7 @@ const Register = () => {
 
 export default Register;
 
-const MyTextField = ({ label, ...props }) => {
+export const MyTextField = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
   return (
     <div className="my-2">

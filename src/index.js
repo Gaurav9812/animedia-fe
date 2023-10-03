@@ -8,11 +8,21 @@ import Header from "./components/Header";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import { ToastContainer } from "react-toastify";
+// import 'react-toastify/dist/'
+import 'react-toastify/dist/ReactToastify.css';
+import { Provider } from "react-redux";
+import store from "./utils/store";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Layout = () => {
   return (
     <>
+      
+      {/* Same as */}
+      <Header />
+      <Outlet />
+      <Footer />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -25,12 +35,6 @@ const Layout = () => {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
-      <Header />
-      <Outlet />
-      <Footer />
-
-      <ToastContainer />
     </>
   );
 };
@@ -56,7 +60,15 @@ const AppRouter = createBrowserRouter([
   },
 ]);
 
-root.render(<RouterProvider router={AppRouter} />);
+const RenderComp=()=>{
+  return (
+  <Provider store={store}>
+  <RouterProvider router={AppRouter} />
+  </Provider>
+  );
+}
+
+root.render(<RenderComp />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
