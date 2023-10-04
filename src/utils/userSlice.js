@@ -9,9 +9,15 @@ const initialState = {
             name:"User",
             initialState:initialState,
             reducers:{
+                fetchUser:()=>{},
                 addUser:(state,action) => {
-                      console.log(action);  
-                      console.log(state);  
+                    
+                   return {
+                    ...state,
+                    user:action.payload.user,
+                    bearerToken:action.payload.token
+                   }
+
                 } ,
                 removeUser:(state)=>{
 
@@ -20,6 +26,6 @@ const initialState = {
             
         });
 
-    export const {addUser,removeUser} = userSlice.actions;
+    export const {addUser,removeUser,fetchUser} = userSlice.actions;
 
     export default userSlice.reducer;

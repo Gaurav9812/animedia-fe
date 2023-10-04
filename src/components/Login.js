@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MyTextField } from "./Register";
 import { Formik } from "formik";
 import axios from "axios";
@@ -6,13 +6,21 @@ import { URL_LOGIN } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
 import { Form, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 
 const Login = () => {
+  const user = useSelector(store => store.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  })
+
+
   return (
     <div className="flex h-5/6 justify-center items-center">
       <div className="w-1/3 border-4 border-indigo-950">
@@ -60,7 +68,9 @@ const Login = () => {
                       theme: "light",
                       });
                   }
-                  dispatch(addUser());
+                  dispatch(addUser({token:response.data.token,user:response.data.user}));
+
+                  return navigate('/');
                 })
                 .catch((error) => {
                   console.log(error);

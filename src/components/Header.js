@@ -1,7 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const user = useSelector((store)=>{return store.user.user});
+const navigate= useNavigate();
+
+
   return (
     <div className="p-5 bg-purple-900 flex justify-between">
       <div className="flex items-center">
@@ -11,7 +16,9 @@ const Header = () => {
         />
         <span className="text-lg text-white">G-boook</span>
       </div>
+      {!user && (
       <div className="flex mr-24">
+        
         <Link to="/login" className="text-lg text-white mx-8">
           Login
         </Link>
@@ -19,6 +26,7 @@ const Header = () => {
           Register
         </Link>
       </div>
+      )}
     </div>
   );
 };

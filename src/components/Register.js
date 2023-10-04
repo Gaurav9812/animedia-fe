@@ -1,14 +1,21 @@
-import { ErrorMessage, Field, Form, Formik, useField } from "formik";
-import React, { useState } from "react";
-import { startYear, years, days, months, BACKEND_URL } from "../helpers/helper";
+import {  Field, Form, Formik, useField } from "formik";
+import React, { useEffect, } from "react";
+import { startYear, years, days, months } from "../helpers/helper";
 import { object, string, number } from "yup";
 import axios from "axios";
 import { URL_REGISTER } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Register = () => {
+  const user = useSelector((store)=>store.user.user);
   const navigate = useNavigate();
   // toast.configure();
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  })
   return (
     <div className="flex h-5/6 justify-center items-center">
       <div className="w-1/3 border-4 border-indigo-950">
