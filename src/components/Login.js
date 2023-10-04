@@ -6,10 +6,13 @@ import { URL_LOGIN } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
 import { Form, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div className="flex h-5/6 justify-center items-center">
       <div className="w-1/3 border-4 border-indigo-950">
@@ -44,6 +47,7 @@ const Login = () => {
                 .then((response) => {
                 
                   console.log(response);
+                  
                   if (response.status == 200) {
                     toast.success(response.data.message, {
                       position: "top-right",
@@ -56,6 +60,7 @@ const Login = () => {
                       theme: "light",
                       });
                   }
+                  dispatch(addUser());
                 })
                 .catch((error) => {
                   console.log(error);

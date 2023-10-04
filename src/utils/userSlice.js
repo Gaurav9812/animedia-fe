@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initialState = {
-    user:null
+    user:null,
+    bearerToken:null,
 };
  const userSlice = createSlice({
             name:"User",
@@ -14,8 +15,9 @@ const initialState = {
                 } ,
                 removeUser:(state)=>{
 
-                }
-            }    
+                },
+            },
+            
         });
 
     export const {addUser,removeUser} = userSlice.actions;
