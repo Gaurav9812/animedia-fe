@@ -25,6 +25,9 @@ const navigate= useNavigate();
         <Link to="/register" className="text-lg text-white">
           Register
         </Link>
+        <a href="/auth/google/callback" className="text-lg text-white mx-8">
+          Google auth
+        </a>
       </div>
       )}
     </div>

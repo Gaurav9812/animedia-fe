@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { addOnLocalStorage, tokenKey } from "../helpers/helper";
 
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
                 fetchUser:()=>{},
                 addUser:(state,action) => {
                     
+                    addOnLocalStorage(tokenKey,action.payload.token);
                    return {
                     ...state,
                     user:action.payload.user,

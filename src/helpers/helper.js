@@ -20,3 +20,22 @@ export const startYear = 1950;
 export const endYear = new Date().getFullYear() - 1;
 
 export const years = Array(endYear - startYear).fill("");
+
+export const tokenKey = "_identity";
+
+export const addOnLocalStorage=(key,value)=>{
+  localStorage.setItem(key,value);
+}
+
+export const deleteFromLocalStorage=(key)=>{
+  localStorage.removeItem(key);
+}
+
+export const getFromLocalStorage=(key)=>{
+  return localStorage.getItem(key);
+}
+
+
+export const removeFromLocalStorage=(key)=>{
+  return localStorage.removeItem(key);
+}
