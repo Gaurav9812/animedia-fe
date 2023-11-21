@@ -2,45 +2,30 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/css/index.css";
 import App from "./components/App";
-import { createBrowserRouter, RouterProvider, Outlet, Navigate, useNavigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 // import 'react-toastify/dist/'
-import 'react-toastify/dist/ReactToastify.css';
-import { Provider, useDispatch } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "react-redux";
 import store from "./utils/store";
-import { getFromLocalStorage, tokenKey } from "./helpers/helper";
-import axios from "axios";
-import { URL_LOGIN_TOKEN } from "./helpers/UrlHelper";
-import { addUser } from "./utils/userSlice";
-
+import NewLayout from "./components/NewLayout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Layout = () => {
-  const dispatch = useDispatch();
-  const navigate= useNavigate();
-  useEffect(()=>{
-    let token = getFromLocalStorage(tokenKey);
-    if(token){
-      axios.get(URL_LOGIN_TOKEN+token).then((response)=>{
-          if(response.data.status == 200){
-            dispatch(addUser({token:response.data.token,user:response.data.user}));
-            return navigate('/');
-          } else if(response.data.status == 201){
+  console.log("layout");
 
-          }
-      }).catch((err)=>{
-         console.log(err); 
-        toast.error(err.response.data.message);
-      });
-    }
-  },[]);
   return (
     <>
-      
       {/* Same as */}
       <Header />
       <Outlet />
@@ -61,6 +46,8 @@ const Layout = () => {
   );
 };
 
+
+
 const AppRouter = createBrowserRouter([
   {
     path: "/",
@@ -70,6 +57,11 @@ const AppRouter = createBrowserRouter([
         path: "/",
         element: <App />,
       },
+    ],
+  },
+  {
+    element: <NewLayout />,
+    children: [
       {
         path: "/register",
         element: <Register />,
@@ -82,13 +74,13 @@ const AppRouter = createBrowserRouter([
   },
 ]);
 
-const RenderComp=()=>{
+const RenderComp = () => {
   return (
-  <Provider store={store}>
-  <RouterProvider router={AppRouter} />
-  </Provider>
+    <Provider store={store}>
+      <RouterProvider router={AppRouter} />
+    </Provider>
   );
-}
+};
 
 root.render(<RenderComp />);
 

@@ -4,10 +4,11 @@ import { Formik } from "formik";
 import axios from "axios";
 import { URL_LOGIN, URL_LOGIN_GOOGLE } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
-import { Form, useNavigate } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import GOOGLE_ICON from '../assets/img/icons8-google-120.png';
 
 const handleCredentialResponse=(data)=>{
      axios.post(URL_LOGIN_GOOGLE,JSON.stringify(data),{
@@ -27,13 +28,14 @@ const handleCredentialResponse=(data)=>{
 }
 
 const Login = () => {
+  console.log("sda");
   const user = useSelector(store => store.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(()=>{
     if(user){
-      navigate('/')
+      navigate('/');
     }else{
       /* global google */
   google.accounts.id.initialize({
@@ -69,14 +71,16 @@ const Login = () => {
 }
 
   return (
-    <div className="flex h-5/6 justify-center items-center">
-      <div className="w-1/3 border-4 border-indigo-950">
-        <div className="p-5 bg-purple-800 flex justify-center items-center">
-          <p className="text-white text-3xl font-bold ">
-            Login
-          </p>
+    <>        <h1 className="text-3xl font-extrabold mb-5 font-sans">Welcome back to world of Anime.</h1>
+        <p className="text-lg font-medium font-sans">Discover the all anime action in one Site.</p>
+
+        <div className="my-5 flex flex-wrap"> 
+        <div id="buttonDiv">s</div>
+        <button className="px-8  border-2 rounded-lg flex items-center mx-6 bg-[#f5f9ff]"> <img src={GOOGLE_ICON} className="w-5 mr-2" /> <span>Google</span> </button>
         </div>
-        <div>
+        <div className="flex">
+          <span>OR </span> <hr />
+        </div>
           <Formik
             initialValues={{   
               username: "",
@@ -131,37 +135,49 @@ const Login = () => {
             {({ errors, isSubmitting, touched,isValidating ,submitForm}) => {
             
               return (
-                <Form className="flex flex-col p-3" onSubmit={submitForm}>
+                <Form className="flex flex-col my-4" onSubmit={submitForm}>
                   
                   <MyTextField
                     type="text"
                     className="border-2 border-black p-2  my-3"
-                    placeholder="Username"
+                    placeholder="Enter email address or username"
                     name="username"
+                    label="Username or Email Address"
                   />
                   <MyTextField
                     type="password"
                     className="border-2 border-black p-2  my-3"
-                    placeholder="Password"
+                    placeholder="Enter password"
                     name="password"
+                    label="Password"
                   />
+
+                  <Link to="forgot-password" className="font-bold text-teal-700 mb-5">
+                    Forgot Password?
+                  </Link>
                   
+                  <div>
                   <button
                     type="submit"
-                    className="bg-purple-800  text-white p-2"
+                    className="  text-white rounded-lg bg-gray-900 px-6 py-2"
                     disabled={isSubmitting}
-                    
                   >
                     Login
                   </button>
-                 <div id="buttonDiv">s</div>
+                  </div>
                 </Form>
               );
             }}
           </Formik>
-        </div>
-      </div>
-    </div>
+
+          <p className="font-medium mt-10">
+            Don't Have an account? 
+            <Link className="text-teal-700 font-bold">
+            Sign up
+            </Link>
+          </p>
+          </>
+
     );
 };
 

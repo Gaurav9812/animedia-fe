@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import {  useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Register = () => {
+
   const user = useSelector((store)=>store.user.user);
   const navigate = useNavigate();
+  console.log("dsa");
   // toast.configure();
   useEffect(()=>{
     if(user){
@@ -234,18 +236,21 @@ export const MyTextField = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
   return (
     <div className="my-2">
+      <div>
+        <label className="font-bold">{label}</label>
       <input
         {...field}
         {...props}
         className={
           meta.touched && meta.error
-            ? "border-4 border-red-800 rounded-md p-2 w-full"
-            : "border-2 border-black rounded-md p-2 w-full"
+            ? "border-2 border-red-700 rounded-md my-2 p-2 w-full"
+            : " rounded-md my-2 p-2 w-full"
         }
       />
       {meta.touched && meta.error ? (
-        <div className="error text-red-700">{meta.error}</div>
+        <div className="error text-red-500">{meta.error}</div>
       ) : null}
+      </div>
     </div>
   );
 };

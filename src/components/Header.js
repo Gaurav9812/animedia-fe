@@ -1,11 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { removeFromLocalStorage, tokenKey } from "../helpers/helper";
+import { removeUser } from "../utils/userSlice";
 
 const Header = () => {
   const user = useSelector((store)=>{return store.user.user});
-const navigate= useNavigate();
+  const dispatch = useDispatch();
 
+  const handleLogout=() => {
+    dispatch(removeUser());
+    removeFromLocalStorage(tokenKey);
+  
+    }
 
   return (
     <div className="p-5 bg-purple-900 flex justify-between">
@@ -30,6 +37,11 @@ const navigate= useNavigate();
         </a>
       </div>
       )}
+      {
+        user && (
+          <button className="text-lg text-white mx-8" onClick={handleLogout} >Logout</button>
+        )
+      }
     </div>
   );
 };

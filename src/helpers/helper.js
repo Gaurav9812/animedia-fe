@@ -23,6 +23,8 @@ export const years = Array(endYear - startYear).fill("");
 
 export const tokenKey = "_identity";
 
+export const SIDE_BAR_IMG = 'https://geektrust.sgp1.digitaloceanspaces.com/assets/svg/meditating_girl.svg';
+
 export const addOnLocalStorage=(key,value)=>{
   localStorage.setItem(key,value);
 }

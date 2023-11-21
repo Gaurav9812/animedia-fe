@@ -22,7 +22,10 @@ const initialState = {
 
                 } ,
                 removeUser:(state)=>{
-
+                        return {
+                            user:null,
+                            bearerToken:null
+                        } ;
                 },
             },
             
