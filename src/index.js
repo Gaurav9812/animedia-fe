@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createRef, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/css/index.css";
 import App from "./components/App";
@@ -16,14 +16,19 @@ import Login from "./components/Login";
 import { ToastContainer } from "react-toastify";
 // import 'react-toastify/dist/'
 import "react-toastify/dist/ReactToastify.css";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./utils/store";
 import NewLayout from "./components/NewLayout";
+import useLogin from "./hooks/useLogin";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Layout = () => {
-  console.log("layout");
 
+
+  const user = useSelector((store)=>store.user.user);
+  useLogin({user});
+   
+  
   return (
     <>
       {/* Same as */}
@@ -47,6 +52,27 @@ const Layout = () => {
 };
 
 
+export const routes = [
+  {
+    path: "/register",
+    element: <Register />,
+    // nodeRef: createRef()
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    // nodeRef: createRef()
+  },
+];
+
+const RenderComp = () => {
+  return (
+    <Provider store={store}>
+      <RouterProvider router={AppRouter} />
+    </Provider>
+  );
+};
+
 
 const AppRouter = createBrowserRouter([
   {
@@ -61,26 +87,9 @@ const AppRouter = createBrowserRouter([
   },
   {
     element: <NewLayout />,
-    children: [
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-    ],
+    children: routes,
   },
 ]);
-
-const RenderComp = () => {
-  return (
-    <Provider store={store}>
-      <RouterProvider router={AppRouter} />
-    </Provider>
-  );
-};
 
 root.render(<RenderComp />);
 

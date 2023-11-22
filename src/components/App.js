@@ -7,9 +7,6 @@ import useLogin from "../hooks/useLogin";
 function App() {
   const user = useSelector((store)=>store.user.user);
 
-  useLogin({user});
-   
-  
 
   return (
     <div className="App">

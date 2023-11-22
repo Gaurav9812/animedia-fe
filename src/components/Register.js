@@ -5,13 +5,21 @@ import { object, string, number } from "yup";
 import axios from "axios";
 import { URL_REGISTER } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
-import {  useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {  Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import GOOGLE_ICON from "../assets/img/icons8-google-120.png";
+import useGoogleLogin from "../hooks/useGoogelLogin";
+import useLogin from "../hooks/useLogin";
 const Register = () => {
 
   const user = useSelector((store)=>store.user.user);
   const navigate = useNavigate();
-  console.log("dsa");
+  const dispatch = useDispatch();
+
+  useLogin({user});
+
+  useGoogleLogin({user,dispatch,navigate});
+  
   // toast.configure();
   useEffect(()=>{
     if(user){
@@ -19,14 +27,20 @@ const Register = () => {
     }
   })
   return (
-    <div className="flex h-5/6 justify-center items-center">
-      <div className="w-1/3 border-4 border-indigo-950">
-        <div className="p-5 bg-purple-800 flex justify-center items-center">
-          <p className="text-white text-3xl font-bold ">
-            Create a new Account?
-          </p>
-        </div>
-        <div>
+    <>
+    <h1 className="text-3xl font-extrabold mb-5 font-sans">Start an Account.</h1>
+    <p className="text-lg font-medium font-sans">In a world of Anime.</p>
+    <p className="text-lg font-medium font-sans">Just a few minutes away from all the anime action you can catch here.</p>
+
+
+    <div className="my-5 flex flex-wrap"> 
+    <div id="buttonDiv">s</div>
+    <button className="px-8  border-2 rounded-lg flex items-center mx-6 bg-[#f5f9ff]"> <img src={GOOGLE_ICON} className="w-5 mr-2" /> <span>Google</span> </button>
+    </div>
+    <div className="flex items-center">
+      <span>OR </span>
+      <div className="flex-grow border-t border-gray-400 ml-2"></div>
+    </div>
           <Formik
             initialValues={{
               firstName: "",
@@ -101,15 +115,17 @@ const Register = () => {
                       type="text"
                       placeholder="First Name"
                       name="firstName"
+                      label="First Name"
                     />
 
                     <MyTextField
                       type="text"
                       placeholder="Last Name"
                       name="lastName"
+                      label="Last Name"
                     />
                   </div>
-                  <div className="flex justify-between my-3">
+                  <div className="flex justify-between my-3 mx-2">
                     <div className="w-full mr-2">
                       <Field
                         as="select"
@@ -120,6 +136,7 @@ const Register = () => {
                             : "border-2 border-black rounded-md p-2 w-full"
                         }
                         name="day"
+                      label="Day"
                       >
                         <option value="">Select a day</option>
                         {days.map((day, index) => {
@@ -144,6 +161,7 @@ const Register = () => {
                             : "border-2 border-black rounded-md p-2 w-full"
                         }
                         name="month"
+                      label="Month"
                       >
                         <option value="">Select a Month</option>
                         {Object.values(months).map((month, index) => {
@@ -168,6 +186,7 @@ const Register = () => {
                             : "border-2 border-black rounded-md p-2 w-full"
                         }
                         name="year"
+                      label="Year"
                       >
                         <option value="">Select a Year</option>
                         {years.map((year, index) => {
@@ -193,40 +212,66 @@ const Register = () => {
                     label="Email"
                     placeholder="Email"
                     name="email"
+
                   />
                   <MyTextField
                     type="text"
                     className="border-2 border-black p-2  my-3"
                     placeholder="Username"
                     name="username"
+                    label="Username"
                   />
                   <MyTextField
                     type="password"
                     className="border-2 border-black p-2  my-3"
                     placeholder="Password"
                     name="password"
+                    label="Password"
                   />
                   <MyTextField
                     type="password"
                     className="border-2 border-black p-2 my-3"
                     placeholder="Re-enter Password"
                     name="confirmPassword"
+                    label="Confirm-Password"
                   />
 
+
+                   <div>      
                   <button
                     type="submit"
-                    className="bg-purple-800  text-white p-2"
+                    className="  text-white rounded-lg bg-gray-900 px-6 py-2 mt-2"
                     disabled={isSubmitting}
                   >
                     Register
                   </button>
+                  </div> 
                 </Form>
               );
             }}
           </Formik>
-        </div>
-      </div>
-    </div>
+
+          <p className="font-medium mt-10">
+            By signing up uou agree to our 
+            <span  className="text-teal-700 font-bold">
+            terms and conditions 
+            </span>
+            &nbsp;
+            and 
+            &nbsp;
+            <span  className="text-teal-700 font-bold">
+             privacy policy
+            </span>.
+          </p>
+
+          <p className="font-medium my-10">
+            Already have an account? 
+            <Link to="/login" className="text-teal-700 font-bold">
+            Sign In
+            </Link>
+          </p>
+        
+    </>
   );
 };
 
@@ -235,7 +280,7 @@ export default Register;
 export const MyTextField = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
   return (
-    <div className="my-2">
+    <div className="m-2">
       <div>
         <label className="font-bold">{label}</label>
       <input

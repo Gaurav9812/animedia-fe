@@ -9,66 +9,21 @@ import { object, string } from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import GOOGLE_ICON from '../assets/img/icons8-google-120.png';
+import useGoogleLogin from "../hooks/useGoogelLogin";
+import useLogin from "../hooks/useLogin";
 
-const handleCredentialResponse=(data)=>{
-     axios.post(URL_LOGIN_GOOGLE,JSON.stringify(data),{
-      method:'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-     }).then((response)=>{
-      if(response.status==200){
-        toast.success(response.data.message);
-        
-      }
-     }).catch((err)=>{
-      toast.error(err.response.data.message);
-        console.log(err);
-     });
-}
+
 
 const Login = () => {
   console.log("sda");
-  const user = useSelector(store => store.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if(user){
-      navigate('/');
-    }else{
-      /* global google */
-  google.accounts.id.initialize({
-    client_id: "53548944878-8usn0t4ru2s7q851tqkmlhadure2ebv9.apps.googleusercontent.com",
-    callback: handleCredentialResponse
-  });
-
-  google.accounts.id.renderButton(
-    document.getElementById("buttonDiv"),
-    { theme: "outline", size: "large" }  // customization attributes
-  );
-
-   google.accounts.id.prompt();
-    }
-  });
-
-  const handleCredentialResponse=(data)=>{
-    axios.post(URL_LOGIN_GOOGLE,JSON.stringify(data),{
-     method:'POST',
-     headers: {
-       "Content-Type": "application/json",
-     },
-    }).then((response)=>{
-     if(response.status==200){
-       toast.success(response.data.message);
-        dispatch(addUser({token:response.data.token,user:response.data.user}));
-        return navigate('/');
-     }
-    }).catch((err)=>{
-     toast.error(err.response.data.message);
-       console.log(err);
-    });
-}
+  const user = useSelector(store => store.user.user);
+ 
+  useLogin({user});
+   
+  useGoogleLogin({user,dispatch,navigate});
 
   return (
     <>        <h1 className="text-3xl font-extrabold mb-5 font-sans">Welcome back to world of Anime.</h1>
@@ -78,9 +33,10 @@ const Login = () => {
         <div id="buttonDiv">s</div>
         <button className="px-8  border-2 rounded-lg flex items-center mx-6 bg-[#f5f9ff]"> <img src={GOOGLE_ICON} className="w-5 mr-2" /> <span>Google</span> </button>
         </div>
-        <div className="flex">
-          <span>OR </span> <hr />
-        </div>
+        <div className="flex items-center">
+        <span>OR </span>
+        <div className="flex-grow border-t border-gray-400 ml-2"></div>
+      </div>
           <Formik
             initialValues={{   
               username: "",
@@ -170,9 +126,9 @@ const Login = () => {
             }}
           </Formik>
 
-          <p className="font-medium mt-10">
+          <p className="font-medium my-10">
             Don't Have an account? 
-            <Link className="text-teal-700 font-bold">
+            <Link to="/register" className="text-teal-700 font-bold">
             Sign up
             </Link>
           </p>
