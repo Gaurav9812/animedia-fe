@@ -1,16 +1,20 @@
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getFromLocalStorage, removeFromLocalStorage, tokenKey } from "../helpers/helper";
 import { URL_LOGIN_TOKEN } from "../helpers/UrlHelper";
 import axios from "axios";
 import { addUser } from "../utils/userSlice";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useLogin=({user})=>{
+  const [showGooglePrompt,setShowGooglePrompt] = useState(false);
+
 
   const dispatch = useDispatch();
   const navigate=useNavigate();
+  const location = useLocation();
+
   console.log("use login before");
     useEffect(()=>{
   console.log("use login inside");
@@ -22,29 +26,33 @@ const useLogin=({user})=>{
          const response = await axios.get(URL_LOGIN_TOKEN+token)
           // .then((response)=>{
               if(response.data.status == 200){
-                console.log("dsa1");
-
                 dispatch(addUser({token:response.data.token,user:response.data.user}));
+                console.log("vas");
+                navigate('/');
               } else if(response.data.status == 201){
                   removeFromLocalStorage(tokenKey);
-                  console.log("dsa");
-                  navigate('/login');
               }
           // }).catch((err)=>{
           // });
         }catch(err){
           console.log(err); 
+          removeFromLocalStorage(tokenKey);
           toast.error(err.response.data.message);
-        
         }
         }else{
           console.log("sda1");
-            navigate('/login');
         }
+        setShowGooglePrompt(true);
+        if(location.pathname == '/'){
+          navigate('/login');
+        }
+      }else{
+        navigate('/');
       }
     }
     fetchData();
     },[user]);
+    return showGooglePrompt;
 }
 
 export default useLogin;

@@ -23,15 +23,15 @@ const handleCredentialResponse=(data)=>{
     });
 }
 
-const useGoogleLogin=async ({user,dispatch,navigate})=>{
-  console.log("use google login before");
+const useGoogleLogin=async ({user,dispatch,navigate,showGooglePrompt:showPrompt})=>{
+  console.log("use google login before"+showPrompt);
 
     useEffect(()=>{
   console.log("use google login inside");
 
       if(user){
         navigate('/');
-      }else{
+      }else if(showPrompt){
         /* global google */
     google.accounts.id.initialize({
       client_id: "53548944878-8usn0t4ru2s7q851tqkmlhadure2ebv9.apps.googleusercontent.com",
@@ -44,7 +44,7 @@ const useGoogleLogin=async ({user,dispatch,navigate})=>{
     );
      google.accounts.id.prompt();
       }
-    });
+    },[showPrompt]);
   
     const handleCredentialResponse=(data)=>{
       axios.post(URL_LOGIN_GOOGLE,JSON.stringify(data),{

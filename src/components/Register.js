@@ -16,9 +16,10 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useLogin({user});
-
-  useGoogleLogin({user,dispatch,navigate});
+  
+  const showGooglePrompt = useLogin({user});
+   
+  useGoogleLogin({user,dispatch,navigate,showGooglePrompt});
   
   // toast.configure();
   useEffect(()=>{

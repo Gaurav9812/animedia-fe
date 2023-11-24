@@ -20,12 +20,14 @@ import { Provider, useSelector } from "react-redux";
 import store from "./utils/store";
 import NewLayout from "./components/NewLayout";
 import useLogin from "./hooks/useLogin";
+import EmailVerification from "./components/EmailVerification";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Layout = () => {
 
 
   const user = useSelector((store)=>store.user.user);
+  console.log("layout "+user);
   useLogin({user});
    
   
@@ -61,6 +63,11 @@ export const routes = [
   {
     path: "/login",
     element: <Login />,
+    // nodeRef: createRef()
+  },
+  {
+    path: "/email-verification",
+    element: <EmailVerification />,
     // nodeRef: createRef()
   },
 ];

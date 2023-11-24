@@ -20,11 +20,12 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user.user);
- 
-  useLogin({user});
-   
-  useGoogleLogin({user,dispatch,navigate});
 
+ 
+  const showGooglePrompt = useLogin({user});
+  console.log(showGooglePrompt); 
+  useGoogleLogin({user,dispatch,navigate,showGooglePrompt});
+  
   return (
     <>        <h1 className="text-3xl font-extrabold mb-5 font-sans">Welcome back to world of Anime.</h1>
         <p className="text-lg font-medium font-sans">Discover the all anime action in one Site.</p>
