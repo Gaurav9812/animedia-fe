@@ -99,7 +99,7 @@ const Register = () => {
                       progress: undefined,
                       theme: "light",
                       });
-                      return navigate('/login');
+                      return navigate('/email-verification');
                   }
                 })
                 .catch((error) => {
@@ -283,7 +283,8 @@ export const MyTextField = ({ label, ...props }) => {
   return (
     <div className="m-2">
       <div>
-        <label className="font-bold">{label}</label>
+        <label 
+        className={meta.touched && meta.error ? "error text-red-500 font-bold" : "font-bold"}>{label}</label>
       <input
         {...field}
         {...props}

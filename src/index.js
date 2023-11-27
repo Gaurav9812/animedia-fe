@@ -21,6 +21,9 @@ import store from "./utils/store";
 import NewLayout from "./components/NewLayout";
 import useLogin from "./hooks/useLogin";
 import EmailVerification from "./components/EmailVerification";
+import VerifyEmail from "./components/VerifyEmail";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetLinkSent from "./components/ResetLinkSent";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Layout = () => {
@@ -68,6 +71,21 @@ export const routes = [
   {
     path: "/email-verification",
     element: <EmailVerification />,
+    // nodeRef: createRef()
+  },
+  {
+    path: "/verify-email/:randhash",
+    element: <VerifyEmail />,
+    // nodeRef: createRef()
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+    // nodeRef: createRef()
+  },
+  {
+    path: "/reset-link-sent",
+    element: <ResetLinkSent />,
     // nodeRef: createRef()
   },
 ];

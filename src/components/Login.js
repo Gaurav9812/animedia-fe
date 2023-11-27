@@ -64,7 +64,7 @@ const Login = () => {
                 
                   console.log(response);
                   
-                  if (response.status == 200) {
+                  if (response.data.status == 200) {
                     toast.success(response.data.message, {
                       position: "top-right",
                       autoClose: 5000,
@@ -75,10 +75,13 @@ const Login = () => {
                       progress: undefined,
                       theme: "light",
                       });
-                  }
-                  dispatch(addUser({token:response.data.token,user:response.data.user}));
+                      dispatch(addUser({token:response.data.token,user:response.data.user}));
 
-                  return navigate('/');
+                      return navigate('/');
+                    }
+                  else if(response.data.status == 200){
+                  toast.warning(response.data.message, {});
+                  }
                 })
                 .catch((error) => {
                   console.log(error);
@@ -109,7 +112,7 @@ const Login = () => {
                     label="Password"
                   />
 
-                  <Link to="forgot-password" className="font-bold text-teal-700 mb-5">
+                  <Link to="/forgot-password" className="font-bold text-teal-700 mb-5">
                     Forgot Password?
                   </Link>
                   
