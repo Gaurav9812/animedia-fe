@@ -24,6 +24,7 @@ import EmailVerification from "./components/EmailVerification";
 import VerifyEmail from "./components/VerifyEmail";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetLinkSent from "./components/ResetLinkSent";
+import ResetPassword from "./components/ResetPassword";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const Layout = () => {
@@ -86,6 +87,11 @@ export const routes = [
   {
     path: "/reset-link-sent",
     element: <ResetLinkSent />,
+    // nodeRef: createRef()
+  },
+  {
+    path: "/reset-password/:hash",
+    element: <ResetPassword />,
     // nodeRef: createRef()
   },
 ];

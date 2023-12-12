@@ -20,8 +20,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user.user);
-
- 
+  
   const showGooglePrompt = useLogin({user});
   console.log(showGooglePrompt); 
   useGoogleLogin({user,dispatch,navigate,showGooglePrompt});

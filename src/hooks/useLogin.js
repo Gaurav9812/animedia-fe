@@ -12,7 +12,7 @@ const useLogin=({user})=>{
 
 
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
 
   console.log("use login before");
@@ -20,6 +20,7 @@ const useLogin=({user})=>{
   console.log("use login inside");
         const fetchData =async ()=>{
         let token = getFromLocalStorage(tokenKey);
+        console.log(user);
         if(!user){
         if(token){
           try {
@@ -27,7 +28,6 @@ const useLogin=({user})=>{
           // .then((response)=>{
               if(response.data.status == 200){
                 dispatch(addUser({token:response.data.token,user:response.data.user}));
-                console.log("vas");
                 navigate('/');
               } else if(response.data.status == 201){
                   removeFromLocalStorage(tokenKey);

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Formik } from "formik";
 import { URL_FORGOT_PASSWORD } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, Link, redirect, useNavigate } from "react-router-dom";
 import { MyTextField } from "./Register";
 import { object, string } from "yup";
 
@@ -39,8 +39,7 @@ const ForgotPassword = ()=>{
             .then((response) => {
                 if(response.data.status == 200){
                     toast.success(response.data.message);
-                    console.log("1sad");
-                     navigate('/reset-link-sent')
+                     navigate('/reset-link-sent',{state:{email:values.email}});
                 }else if(response.data.status == 201){
                     toast.warn(response.data.message);
                 }else if(response.data.status == 500){
@@ -67,16 +66,20 @@ const ForgotPassword = ()=>{
                 label="Username or Email Address"
               />
 
-              <div>
+                <div className="d-flex">
               <button
                 type="submit"
-                className="  text-white rounded-lg bg-gray-900 px-6 py-2"
+                className="  text-white rounded-lg bg-gray-900 px-6 py-2 m-2"
                 disabled={isSubmitting}
               >
                 Send Password Reset Link
               </button>
+              
+              <Link to="/login" className="text-white rounded-lg bg-gray-900 px-6 py-2"  >
+               Remember Password
+              </Link>
               </div>
-            </Form>
+                        </Form>
           );
         }}
       </Formik>
