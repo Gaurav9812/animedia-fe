@@ -2,25 +2,22 @@ import { useEffect } from "react";
 import "../assets/css/App.css";
 import { useDispatch, useSelector } from "react-redux";
 import useLogin from "../hooks/useLogin";
-import { HOME, currUrl } from "../utils/urlSlice";
+import {  MESSAGES, currUrl } from "../utils/urlSlice";
 
 
-function App() {
-  const user = useSelector((store)=>store.user.user);
-
+function Messages() {
+  
   const dispatch = useDispatch();
 
   useEffect(()=>{
-    dispatch(currUrl({component:HOME}))
+    dispatch(currUrl({component:MESSAGES}))
   },[])
   
-
-
   return (
     <div className="App">
-      <h1>asd</h1>
+      <h1>Messages</h1>
     </div>
   );
 }
 
-export default App;
+export default Messages;

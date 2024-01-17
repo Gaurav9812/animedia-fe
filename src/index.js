@@ -5,15 +5,12 @@ import App from "./components/App";
 import {
   createBrowserRouter,
   RouterProvider,
-  Outlet,
-  Navigate,
-  useNavigate,
+
 } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import { ToastContainer } from "react-toastify";
 // import 'react-toastify/dist/'
 import "react-toastify/dist/ReactToastify.css";
 import { Provider, useSelector } from "react-redux";
@@ -25,37 +22,13 @@ import VerifyEmail from "./components/VerifyEmail";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetLinkSent from "./components/ResetLinkSent";
 import ResetPassword from "./components/ResetPassword";
+import Layout from "./components/Layout";
+import Notifications from "./components/Notifications";
+import Messages from "./components/Messages";
+import Videos from "./components/Videos";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const Layout = () => {
 
-
-  const user = useSelector((store)=>store.user.user);
-  console.log("layout "+user);
-  useLogin({user});
-   
-  
-  return (
-    <>
-      {/* Same as */}
-      <Header />
-      <Outlet />
-      <Footer />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-    </>
-  );
-};
 
 
 export const routes = [
@@ -114,6 +87,19 @@ const AppRouter = createBrowserRouter([
         path: "/",
         element: <App />,
       },
+      {
+        path: "/notifications",
+        element: <Notifications />,
+      },
+      {
+        path: "/messages",
+        element: <Messages />,
+      },
+      {
+        path: "/videos",
+        element: <Videos />,
+      },
+      
     ],
   },
   {
@@ -121,6 +107,7 @@ const AppRouter = createBrowserRouter([
     children: routes,
   },
 ]);
+
 
 root.render(<RenderComp />);
 

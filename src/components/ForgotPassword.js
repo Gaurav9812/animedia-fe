@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Formik } from "formik";
+import { Formik,Form } from "formik";
 import { URL_FORGOT_PASSWORD } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
-import { Form, Link, redirect, useNavigate } from "react-router-dom";
+import {  Link, redirect, useNavigate } from "react-router-dom";
 import { MyTextField } from "./Register";
 import { object, string } from "yup";
 
@@ -12,7 +12,6 @@ const ForgotPassword = ()=>{
       <h1 className="text-3xl font-extrabold mb-5 font-sans">Forgot Password.</h1>
     <p className="text-lg font-medium font-sans">Please enter the Email Id associated with your account and we’ll send verification code to reset your password.
 .</p>
-
    
       <Formik
         initialValues={{   

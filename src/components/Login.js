@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { MyTextField } from "./Register";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import axios from "axios";
 import { URL_LOGIN, URL_LOGIN_GOOGLE } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
-import { Form, Link, useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
@@ -49,54 +49,48 @@ const Login = () => {
               return errors;
             }}
             onSubmit={async (values, { setSubmitting }) => {
-             
-              setSubmitting(true);
-              return axios({
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                url: URL_LOGIN,
-                data: JSON.stringify(values),
-              })
-                .then((response) => {
-                
-                  console.log(response);
-                  
-                  if (response.data.status == 200) {
-                    toast.success(response.data.message, {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light",
-                      });
-                      dispatch(addUser({token:response.data.token,user:response.data.user}));
+            
 
-                      return navigate('/');
-                    }
-                  else if(response.data.status == 200){
-                  toast.warning(response.data.message, {});
-                  }
-                })
-                .catch((error) => {
-                  console.log(error);
-                  toast.error(error.response.data.message, {});
+              try{
+                setSubmitting(true);
+                 let response  = await axios({
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  url: URL_LOGIN,
+                  data: JSON.stringify(values),
                 });
 
-                
-                
+                if (response.data.status == 200) {
+                  toast.success(response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+                    dispatch(addUser({token:response.data.token,user:response.data.user}));
+                    return navigate('/');
+                  }
+                else if(response.data.status == 200){
+                toast.warning(response.data.message, {});
+                }
+              }catch (error){
+                console.log(error);
+                toast.error(error.response.data.message, {});
+              }
+              
             }}
           >
-            {({ errors, isSubmitting, touched,isValidating ,submitForm}) => {
+            {({ errors, isSubmitting, touched,isValidating,submitForm}) => {
             
               return (
-                <Form className="flex flex-col my-4" onSubmit={submitForm}>
-                  
-                  <MyTextField
+                <Form  className="flex flex-col my-4" >
+                   <MyTextField
                     type="text"
                     className="border-2 border-black p-2  my-3"
                     placeholder="Enter email address or username"
@@ -120,11 +114,13 @@ const Login = () => {
                     type="submit"
                     className="  text-white rounded-lg bg-gray-900 px-6 py-2"
                     disabled={isSubmitting}
+                    onClick={submitForm}
                   >
                     Login
                   </button>
                   </div>
-                </Form>
+
+                 </Form>
               );
             }}
           </Formik>
@@ -143,6 +139,6 @@ const Login = () => {
 export default Login;
 
 const loginValidationSchema = object({  
-  username: string().min(10).max(50).required(),
-  password: string().min(10).max(50).required(),
+  username: string().required(),
+  password: string().required(),
 });

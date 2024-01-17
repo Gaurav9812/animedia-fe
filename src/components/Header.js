@@ -1,31 +1,52 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, matchPath, useNavigate } from "react-router-dom";
 import { removeFromLocalStorage, tokenKey } from "../helpers/helper";
 import { removeUser } from "../utils/userSlice";
+import LOGO from "../assets/img/31530356_bird_2.svg"
+
+import { HOME, MESSAGES, NOTIFICATIONS, VIDEOS } from "../utils/urlSlice";
+import HomeIcon from "../assets/img/svgs/HomeIcon";
+import MessageIcon from "../assets/img/svgs/MessageIcon";
+import NotificationIcon from "../assets/img/svgs/NotificationIcon";
+import VideoIcon from "../assets/img/svgs/VideoIcon";
+
 
 const Header = () => {
   const user = useSelector((store)=>{return store.user.user});
-  const dispatch = useDispatch();
+  const url = useSelector((store)=>{return store.url.component });
 
+  const dispatch = useDispatch();
+  
   const handleLogout=() => {
     dispatch(removeUser());
     removeFromLocalStorage(tokenKey);
-  
+
     }
+    console.log(url)
 
   return (
-    <div className="p-5 bg-purple-900 flex justify-between">
-      <div className="flex items-center">
-        <img
-          className="w-10 mx-5"
-          src="https://p1.hiclipart.com/preview/179/234/505/books-icon-ebooks-icon-g-icon-goodreads-icon-round-icon-social-media-icon-yellow-circle-orange-logo-png-clipart.jpg "
-        />
-        <span className="text-lg text-white">G-boook</span>
-      </div>
-      {!user && (
-      <div className="flex mr-24">
+    <div className="grid grid-cols-4 gap-3">
+      {/* Search */}
+      <div className="flex justify-around items-center col-span-1 ">
         
+        <img
+          className="w-10 mx-5 fill-black"
+          src={LOGO}
+        />
+        
+        <input placeholder="#Explore"  className="rounded-2xl p-2 bg-[var(--color-light-black)]" />
+      </div>
+      <div className="flex justify-center col-span-2">
+          <Link to="/" className={url == HOME ? "mx-4 w-8 text-[var(--color-light-blue)]" : "mx-4 w-8 "}  ><HomeIcon/></Link>
+          <Link to="/messages" className={url == MESSAGES ? "mx-4 w-8 text-[var(--color-light-blue)]" : "mx-4 w-8 "}  ><MessageIcon/></Link>
+          <Link to="/notifications" className={url == NOTIFICATIONS ? "mx-4 w-8 text-[var(--color-light-blue)]" : "mx-4 w-8 "}  ><NotificationIcon/></Link>
+          <Link to="/videos" className={url == VIDEOS ? "mx-4 w-8 text-[var(--color-light-blue)]" : "mx-4 w-8 "}  ><VideoIcon/></Link>
+          
+      </div>
+      <div className="mr-2 flex justify-end col-span-1">
+      {user ? ( <button className="text-lg text-white mx-8" onClick={handleLogout} >Logout</button>) : (
+        <>
         <Link to="/login" className="text-lg text-white mx-8">
           Login
         </Link>
@@ -35,13 +56,10 @@ const Header = () => {
         <a href="/auth/google/callback" className="text-lg text-white mx-8">
           Google auth
         </a>
-      </div>
+        </>
       )}
-      {
-        user && (
-          <button className="text-lg text-white mx-8" onClick={handleLogout} >Logout</button>
-        )
-      }
+      
+      </div>
     </div>
   );
 };
