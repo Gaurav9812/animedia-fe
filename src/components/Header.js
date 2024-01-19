@@ -23,15 +23,14 @@ const Header = () => {
     removeFromLocalStorage(tokenKey);
 
     }
-    console.log(url)
-
+  
   return (
-    <div className="grid grid-cols-4 gap-3">
+    <div className="grid grid-cols-4 gap-3 mb-3">
       {/* Search */}
-      <div className="flex justify-around items-center col-span-1 ">
+      <div className="flex  items-center col-span-1 ">
         
         <img
-          className="w-10 mx-5 fill-black"
+          className="w-10 mx-4 fill-black"
           src={LOGO}
         />
         

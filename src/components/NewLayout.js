@@ -21,7 +21,7 @@ const NewLayout = () => {
         {/* <Header /> */}
         <div className="flex">
         <div className="w-1/4 h-screen bg-red-950">
-         <Sidebar />
+           <Sidebar />
          </div>
 
       <div className="w-3/4 p-8 h-screen bg-gray-100 overflow-scroll">

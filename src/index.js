@@ -4,11 +4,9 @@ import "./assets/css/index.css";
 import App from "./components/App";
 import {
   createBrowserRouter,
-  RouterProvider,
-
+  RouterProvider
 } from "react-router-dom";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+
 import Register from "./components/Register";
 import Login from "./components/Login";
 // import 'react-toastify/dist/'
