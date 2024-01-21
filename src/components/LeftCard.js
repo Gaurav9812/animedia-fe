@@ -1,10 +1,20 @@
 import { useSelector } from "react-redux";
 import ThreeVerticalDot from "../assets/img/svgs/ThreeVerticalDot";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import CoverPhotoModal from "./CoverPhotoModal";
 
 const LeftCard = ()=>{
     const dropdownRef = useRef(null);
     const [showDropdown,setShowDropdown] = useState(false);
+    const [showModal,setShowModal] = useState(false);
+
+    useEffect(()=>{
+      document.addEventListener('mousedown',(e)=>{
+        if(showDropdown && !dropdownRef.current.contains(e.target)){
+            setShowDropdown(false);
+        }
+  })
+    },[]);
 
     const user = useSelector((store) => {
         return store.user.user;
@@ -12,15 +22,20 @@ const LeftCard = ()=>{
 
       const handleClick=()=>{
         setShowDropdown(true);
+        
       }
-      document.addEventListener('mousedown',(e)=>{
-            if(showDropdown && !dropdownRef.current.contains(e.target)){
-                setShowDropdown(false);
-            }
-      })
+      const handleCoverPhotoOpen=()=>{
+        setShowModal(true);
+        setShowDropdown(false);
+      }
+      const handleCoverPhotoCLose=()=>{
+        setShowModal(false);
+      }
+      
     
    return (
         <div className="h-96 bg-[var(--color-light-black)] rounded-3xl overflow-hidden ">
+          {showModal && <CoverPhotoModal closeModal ={handleCoverPhotoCLose} />}
         <div className="h-32 relative flex justify-center items-center" ref={dropdownRef}>
           <img
             className="w-full h-full"
@@ -36,7 +51,7 @@ const LeftCard = ()=>{
           </div>
           {
                 showDropdown && <div className=" bg-slate-700 text-sm p-2" >
-                <div  className="hover:bg-black p-1">Update Cover Photo </div>
+                <div  className="hover:bg-black p-1" onClick={handleCoverPhotoOpen} >Update Cover Photo </div>
                 <div className="hover:bg-black p-1">Update Profile Photo </div>
               </div>
           }

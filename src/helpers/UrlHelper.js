@@ -3,16 +3,17 @@ export const URL_REGISTER = `${BACKEND_URL}/api/user/create-user`;
 
 export const URL_LOGIN = `${BACKEND_URL}/api/user/create-session`;
 
+export const URL_GET_USER = `${BACKEND_URL}/api/user/get-user`;
+
 export const URL_LOGIN_GOOGLE = `${BACKEND_URL}/api/user/login-google`;
 
-
 export const URL_LOGIN_TOKEN = `${BACKEND_URL}/api/user/login/`;
-
 
 export const URL_FORGOT_PASSWORD = `${BACKEND_URL}/api/user/forgot-password`;
 
 export const URL_RESET_PASSWORD = `${BACKEND_URL}/api/user/reset-password/`;
 
+export const URL_PROFILE_UPLOAD_PHOTO = `${BACKEND_URL}/api/profile/upload-photo`;
 
 export const to=(URL,params)=>{
     let paramsString = '';
