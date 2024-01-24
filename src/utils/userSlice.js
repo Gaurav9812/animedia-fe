@@ -21,6 +21,15 @@ const initialState = {
                    }
 
                 } ,
+                updateUser:(state,action) => {
+                    
+                    addOnLocalStorage(tokenKey,action.payload.token);
+                   return {
+                    ...state,
+                    user:action.payload.user
+                   }
+
+                } ,
                 removeUser:(state)=>{
                         return {
                             user:null,
@@ -31,6 +40,6 @@ const initialState = {
             
         });
 
-    export const {addUser,removeUser,fetchUser} = userSlice.actions;
+    export const {addUser,removeUser,fetchUser,updateUser} = userSlice.actions;
 
     export default userSlice.reducer;

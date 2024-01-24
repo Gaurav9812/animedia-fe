@@ -24,3 +24,4 @@ export function returnFileSize(number) {
     }
   }
   
+  export const getFIlePath = "../../../nodejs_projects/Anidia/uploads/users/cover_photo/";

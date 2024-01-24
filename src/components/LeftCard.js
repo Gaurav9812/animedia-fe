@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import ThreeVerticalDot from "../assets/img/svgs/ThreeVerticalDot";
 import { useEffect, useRef, useState } from "react";
 import CoverPhotoModal from "./CoverPhotoModal";
+import { getFIlePath } from "../helpers/FileHelper";
 
 const LeftCard = ()=>{
     const dropdownRef = useRef(null);
@@ -61,7 +62,7 @@ const LeftCard = ()=>{
         </div>
         <div className="flex justify-around">
           <div>1000 Followers</div>
-          <div className="grow"> Prof </div>
+          <div className="grow mx-2"> {user?.name?.firstName} </div>
           <div>100 Following</div>
         </div>
       </div>
