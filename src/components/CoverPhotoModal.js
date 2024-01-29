@@ -12,24 +12,28 @@ import {
   URL_LOGIN,
   URL_PROFILE_UPLOAD_PHOTO,
 } from "../helpers/UrlHelper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import store from "../utils/store";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "../utils/userSlice";
 
 const CoverPhotoModal = ({ closeModal }) => {
   const bearerToken = useSelector((store) => {
     return store.user.bearerToken;
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [file, setFile] = useState(null);
   const [previewDiv, setPreviewDiv] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [submitting,setSubmitting] = useState(false);
 
   const handleFileSave = async () => {
+    
     if (file) {
-        // setSubmitting(true);
+        setSubmitting(true);
       let formData = new FormData();
       formData.append("cover_photo", file);
       formData.append("field", "cover_photo");
@@ -39,17 +43,20 @@ const CoverPhotoModal = ({ closeModal }) => {
           url: URL_PROFILE_UPLOAD_PHOTO,
           headers: {
             Authorization: `Bearer ${bearerToken}`,
-            
           },
           data: formData,
           method: "POST",
         });
         if (response.data.status != 200) {
           toast.error(response.data.message);
-          // return navigate('/login');
+        }else{
+          dispatch(updateUser({user:response.data.user}));
+          setSubmitting(false);
+          closeModal();
         }
-        // setSubmitting(false);
-        console.log(response);
+
+        
+        
       } catch (error) {}
 
       return;

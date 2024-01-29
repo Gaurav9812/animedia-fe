@@ -23,7 +23,6 @@ const initialState = {
                 } ,
                 updateUser:(state,action) => {
                     
-                    addOnLocalStorage(tokenKey,action.payload.token);
                    return {
                     ...state,
                     user:action.payload.user

@@ -23,7 +23,9 @@ code {
   :root {
       --color-dark-black: #222831;
       --color-light-black: #393E46;
-      --color-light-blue: #00ADB5;
+      --color-light-blue: #89c8cb;
       --color-white:#EEEEEE;
+      --font-color-primary: #000000;
+      --font-color-secondary: #c3b7b7ee;
   }
 }
