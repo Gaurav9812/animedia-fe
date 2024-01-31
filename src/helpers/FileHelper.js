@@ -5,7 +5,7 @@ export const FileTypes= [
   "image/avif",
 ];
 const MAX_UPLOAD_SIZE = 1024*1024*10;
-const MIN_UPLOAD_SIZE = 1024*100; 
+const MIN_UPLOAD_SIZE = 1024*10; 
 
 export const checkIfSizeIsCorrect = (size) => {
         if(size>MAX_UPLOAD_SIZE || size<MIN_UPLOAD_SIZE){

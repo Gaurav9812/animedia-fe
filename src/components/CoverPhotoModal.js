@@ -17,12 +17,13 @@ import store from "../utils/store";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../utils/userSlice";
+import { resolveFields } from "../helpers/helper";
 
-const CoverPhotoModal = ({ closeModal }) => {
+const CoverPhotoModal = ({ fieldToUpdate,closeModal }) => {
   const bearerToken = useSelector((store) => {
     return store.user.bearerToken;
   });
-  const navigate = useNavigate();
+  
   const dispatch = useDispatch();
 
   const [file, setFile] = useState(null);
@@ -32,11 +33,11 @@ const CoverPhotoModal = ({ closeModal }) => {
 
   const handleFileSave = async () => {
     
-    if (file) {
+    if (file && !submitting) {
         setSubmitting(true);
       let formData = new FormData();
       formData.append("cover_photo", file);
-      formData.append("field", "cover_photo");
+      formData.append("field", fieldToUpdate);
       formData.append("fileName", file.name);
       try {
         let response = await axios({
@@ -53,10 +54,7 @@ const CoverPhotoModal = ({ closeModal }) => {
           dispatch(updateUser({user:response.data.user}));
           setSubmitting(false);
           closeModal();
-        }
-
-        
-        
+        }        
       } catch (error) {}
 
       return;
@@ -90,7 +88,7 @@ const CoverPhotoModal = ({ closeModal }) => {
     <div className="fixed overflow-scroll flex justify-center items-center top-0 left-0 h-full w-full backdrop-blur-none z-10 backdrop-brightness-50">
       <div className="w-1/2 bg-[var(--color-light-black)] border-2 rounded-3xl">
         <div className="h-1/6 bg-red text-center p-6 text-bold border-b-2 relative">
-          Upload Profile photo
+          Upload {resolveFields(fieldToUpdate)}
           <div className="absolute bg-[var(--color-dark-black)] top-2 right-5 cursor-pointer p-1">
             <IoCloseSharp onClick={closeModal} />
           </div>

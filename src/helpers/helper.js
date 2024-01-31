@@ -41,3 +41,19 @@ export const getFromLocalStorage=(key)=>{
 export const removeFromLocalStorage=(key)=>{
   return localStorage.removeItem(key);
 }
+
+
+export const resolveFields = (field)=>{
+    return allFields()[field];
+}
+
+export const CHAR_LIMT_IN_BIO = 100;
+
+const allFields = ()=>{
+  return {
+    cover_photo:"Cover Photo",
+    profile_photo:"Profile Photo"
+  }
+}
+
+

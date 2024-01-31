@@ -15,6 +15,8 @@ export const URL_RESET_PASSWORD = `${BACKEND_URL}/api/user/reset-password/`;
 
 export const URL_PROFILE_UPLOAD_PHOTO = `${BACKEND_URL}/api/profile/upload-photo`;
 
+export const URL_UPDATE_BIO = `${BACKEND_URL}/api/profile/update-bio`;
+
 export const to=(URL,params)=>{
     let paramsString = '';
     if(params instanceof Object){
