@@ -5,7 +5,7 @@ import axios from "axios";
 import { URL_PROFILE_UPLOAD_PHOTO, URL_UPDATE_BIO } from "../helpers/UrlHelper";
 import { toast } from "react-toastify";
 import { updateUser } from "../utils/userSlice";
-import Edit from "../assets/img/svgs/Edit";
+import { FaPencilAlt } from "react-icons/fa";
 
 const BioComponent = () => {
   const bio = useSelector((store) => {
@@ -59,7 +59,7 @@ const BioComponent = () => {
     setUpdateBio(false);
   };
   return (
-    <div className="flex justify-center text-lg mb-3">
+    <div className="flex justify-center text-lg w-full">
       {updateBio ? (
         <div className="flex flex-col items-end w-full p-2 text-sm ">
           <textarea
@@ -92,7 +92,7 @@ const BioComponent = () => {
           onClick={updateBioTrue} 
             className="p-1 w-7 cursor-pointer text-sm text-[var(--font-color-primary)] rounded-lg hover:bg-[var(--color-light-black)] "
           >
-          <Edit  />  
+          <FaPencilAlt  />  
           </div>
           
         </div>

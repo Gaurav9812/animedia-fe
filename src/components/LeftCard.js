@@ -84,7 +84,7 @@ const LeftCard = () => {
           )}
         </div>
       </div>
-      <div className="flex justify-around">
+      <div className="flex justify-around w-full">
         <div className="flex flex-col items-center">
           {" "}
           <span className="text-xl break-after-column text-[var(--font-color-primary)]">1000</span>

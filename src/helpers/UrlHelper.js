@@ -17,6 +17,8 @@ export const URL_PROFILE_UPLOAD_PHOTO = `${BACKEND_URL}/api/profile/upload-photo
 
 export const URL_UPDATE_BIO = `${BACKEND_URL}/api/profile/update-bio`;
 
+export const URL_ADD_UPDATE_SKILLS = `${BACKEND_URL}/api/profile/update-skills`;
+
 export const to=(URL,params)=>{
     let paramsString = '';
     if(params instanceof Object){
