@@ -3,6 +3,7 @@ import "../assets/css/App.css";
 import { useDispatch, useSelector } from "react-redux";
 import useLogin from "../hooks/useLogin";
 import { HOME, currUrl } from "../utils/urlSlice";
+import CreatePost from "./CreatePost";
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>asd</h1>
+        <CreatePost />
     </div>
   );
 }

@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../utils/userSlice";
 import { resolveFields } from "../helpers/helper";
+import Modal from "./Modal";
 
 const CoverPhotoModal = ({ fieldToUpdate,closeModal }) => {
   const bearerToken = useSelector((store) => {
@@ -85,8 +86,7 @@ const CoverPhotoModal = ({ fieldToUpdate,closeModal }) => {
   };
 
   return (
-    <div className="fixed overflow-scroll flex justify-center items-center top-0 left-0 h-full w-full backdrop-blur-none z-10 backdrop-brightness-50">
-      <div className="w-1/2 absolute bg-[var(--color-light-black)] border-2 rounded-3xl">
+    <Modal >
         <div className="h-1/6 bg-red text-center p-6 text-bold border-b-2 relative">
           Upload {resolveFields(fieldToUpdate)}
           <div className="absolute bg-[var(--color-dark-black)] top-2 right-5 cursor-pointer p-1">
@@ -131,8 +131,8 @@ const CoverPhotoModal = ({ fieldToUpdate,closeModal }) => {
             Save
           </button>
         </div>
-      </div>
-    </div>
+        </Modal>
+      
   );
 };
 

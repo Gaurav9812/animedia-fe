@@ -6,6 +6,7 @@ import { getFIlePath } from "../helpers/FileHelper";
 import { ref } from "yup";
 import BioComponent from "./BioComponent";
 import { Link } from "react-router-dom";
+import ProfilePhoto from "./ProfilePhoto";
 
 const LeftCard = () => {
   const dropdownRef = useRef(null);
@@ -93,16 +94,7 @@ const LeftCard = () => {
           </span>{" "}
         </div>
         <div className="w-20 h-20 mx-2 rounded-3xl overflow-hidden -my-8 z-10 border-4 border-[var(--color-dark-black)]">
-          {user?.profilePhoto ? (
-            <img
-              src={user?.profilePhoto}
-              className="object-center object-cover"
-            />
-          ) : (
-            <div className="text-5xl w-full h-full text-center flex items-center justify-center bg-slate-300 text-[#000000ee]">
-             <p> {user?.name?.firstName.charAt(0)}</p>
-            </div>
-          )}
+          <ProfilePhoto {...user} />
         </div>
         <div className="flex flex-col items-center">
           {" "}
