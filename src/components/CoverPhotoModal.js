@@ -109,6 +109,7 @@ const CoverPhotoModal = ({ fieldToUpdate,closeModal }) => {
             Upload File (jpg, png, avif)
             <input
               type="file"
+              disabled={submitting}
               className="hidden"
               accept=".jpg,.jpeg,.png,.avif"
               onChange={handleFile}
