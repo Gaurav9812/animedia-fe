@@ -1,4 +1,4 @@
-export const BACKEND_URL = "http://localhost:1234";
+export const BACKEND_URL = process.env.REACT_APP_BACKEND_ENDPOINT;
 export const URL_REGISTER = `${BACKEND_URL}/api/user/create-user`;
 
 export const URL_LOGIN = `${BACKEND_URL}/api/user/create-session`;

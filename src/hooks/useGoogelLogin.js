@@ -34,7 +34,7 @@ const useGoogleLogin=async ({user,dispatch,navigate,showGooglePrompt:showPrompt}
       }else if(showPrompt){
         /* global google */
     google.accounts.id.initialize({
-      client_id: "53548944878-8usn0t4ru2s7q851tqkmlhadure2ebv9.apps.googleusercontent.com",
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleCredentialResponse
     });
   
