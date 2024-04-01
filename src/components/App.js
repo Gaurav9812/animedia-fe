@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useLogin from "../hooks/useLogin";
 import { HOME, currUrl } from "../utils/urlSlice";
 import CreatePost from "./CreatePost";
+import Posts from "./Posts";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="App">
         <CreatePost />
+        <Posts />
     </div>
   );
 }

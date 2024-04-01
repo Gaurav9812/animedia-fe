@@ -21,6 +21,8 @@ export const URL_ADD_UPDATE_SKILLS = `${BACKEND_URL}/api/profile/update-skills`;
 
 export const URL_ADD_POST = `${BACKEND_URL}/api/post/add-post`;
 
+export const URL_GET_POSTS = `${BACKEND_URL}/api/post/get-post`;
+
 export const to=(URL,params)=>{
     let paramsString = '';
     if(params instanceof Object){
