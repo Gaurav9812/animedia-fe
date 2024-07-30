@@ -16,16 +16,18 @@ const Layout = () => {
     <div className="p-5">
       {/* Same as */}
       <Header />
-      <div className="grid grid-cols-4 gap-3 text-white">
-      <div className="col-span-1">
-        <LeftSidebar />
-      </div>
-      <div className="col-span-2">
-        <Outlet />
-      </div>
-      <div className="col-span-1">
-        <RightSidebar />
-      </div>
+      <div className="grid grid-cols-4 gap-8 text-white">
+        <div className="col-span-1">
+          <LeftSidebar />
+        </div>
+        <div className="col-span-2 flex justify-center">
+          <div className="w-4/5">
+            <Outlet />
+          </div>
+        </div>
+        <div className="col-span-1">
+          <RightSidebar />
+        </div>
       </div>
       <Footer />
       <ToastContainer
